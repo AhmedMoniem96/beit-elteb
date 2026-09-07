@@ -1,0 +1,29 @@
+"use client";
+import { FormEvent, useState } from "react";
+import { FormSection } from "./AdminUI";
+type Content = Record<string, string | boolean | null | undefined>;
+function Field({ name, label, value, rtl, area, required = true }: { name: string; label: string; value?: string | boolean | null; rtl?: boolean; area?: boolean; required?: boolean }) {
+  return <label className={`admin-field ${area ? "span-2" : ""}`}>{label}{area ? <textarea name={name} defaultValue={String(value || "")} dir={rtl ? "rtl" : undefined} required={required} /> : <input name={name} defaultValue={String(value || "")} dir={rtl ? "rtl" : undefined} required={required} />}</label>;
+}
+function Visible({ name, value }: { name: string; value?: string | boolean | null }) { return <label className="admin-check span-2"><input name={name} type="checkbox" defaultChecked={value !== false} /> Visible on homepage</label>; }
+export function HomepageForm({ content: c }: { content: Content }) {
+  const [state, setState] = useState<"idle" | "saving" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+  async function save(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault(); setState("saving"); setMessage("");
+    const form = new FormData(e.currentTarget); const body: Content = {};
+    for (const [key, value] of form.entries()) body[key] = String(value);
+    for (const key of ["servicesVisible", "doctorsVisible", "whyVisible", "appointmentVisible", "insuranceVisible"]) body[key] = form.get(key) === "on";
+    try { const res = await fetch("/api/admin/homepage", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }); const data = await res.json(); if (!res.ok) throw new Error(data.error || "Save failed"); setState("success"); setMessage("Homepage content saved successfully."); }
+    catch (error) { setState("error"); setMessage(error instanceof Error ? error.message : "Could not save homepage content."); }
+  }
+  return <form className="admin-form-stack" onSubmit={save}>
+    <FormSection title="Hero" description="Your primary welcome message and calls to action."><Field name="heroTitleEn" label="English title" value={c.heroTitleEn}/><Field name="heroTitleAr" label="Arabic title" value={c.heroTitleAr} rtl/><Field name="heroDescriptionEn" label="English description" value={c.heroDescriptionEn} area/><Field name="heroDescriptionAr" label="Arabic description" value={c.heroDescriptionAr} rtl area/><Field name="heroImageUrl" label="Hero image URL" value={c.heroImageUrl} required={false}/><Field name="primaryCtaEn" label="Primary CTA (English)" value={c.primaryCtaEn}/><Field name="primaryCtaAr" label="Primary CTA (Arabic)" value={c.primaryCtaAr} rtl/><Field name="secondaryCtaEn" label="Secondary CTA (English)" value={c.secondaryCtaEn}/><Field name="secondaryCtaAr" label="Secondary CTA (Arabic)" value={c.secondaryCtaAr} rtl/></FormSection>
+    <FormSection title="Services Section" description="Control featured healthcare services."><Field name="servicesHeadingEn" label="English heading" value={c.servicesHeadingEn}/><Field name="servicesHeadingAr" label="Arabic heading" value={c.servicesHeadingAr} rtl/><Field name="servicesDescriptionEn" label="English description" value={c.servicesDescriptionEn} area/><Field name="servicesDescriptionAr" label="Arabic description" value={c.servicesDescriptionAr} rtl area/><Visible name="servicesVisible" value={c.servicesVisible}/></FormSection>
+    <FormSection title="Doctors Section" description="Showcase featured medical professionals."><Field name="doctorsHeadingEn" label="English heading" value={c.doctorsHeadingEn}/><Field name="doctorsHeadingAr" label="Arabic heading" value={c.doctorsHeadingAr} rtl/><Field name="doctorsDescriptionEn" label="English description" value={c.doctorsDescriptionEn} area/><Field name="doctorsDescriptionAr" label="Arabic description" value={c.doctorsDescriptionAr} rtl area/><Visible name="doctorsVisible" value={c.doctorsVisible}/></FormSection>
+    <FormSection title="Why Choose Us" description="Explain what makes Beit El Teb different."><Field name="whyTitleEn" label="English title" value={c.whyTitleEn}/><Field name="whyTitleAr" label="Arabic title" value={c.whyTitleAr} rtl/><Field name="whyDescriptionEn" label="English description" value={c.whyDescriptionEn} area/><Field name="whyDescriptionAr" label="Arabic description" value={c.whyDescriptionAr} rtl area/><Visible name="whyVisible" value={c.whyVisible}/></FormSection>
+    <FormSection title="Appointment CTA" description="Encourage visitors to book an appointment."><Field name="ctaTitleEn" label="English title" value={c.ctaTitleEn}/><Field name="ctaTitleAr" label="Arabic title" value={c.ctaTitleAr} rtl/><Field name="ctaDescriptionEn" label="English description" value={c.ctaDescriptionEn} area/><Field name="ctaDescriptionAr" label="Arabic description" value={c.ctaDescriptionAr} rtl area/><Field name="ctaImageUrl" label="CTA image URL" value={c.ctaImageUrl} required={false}/><Visible name="appointmentVisible" value={c.appointmentVisible}/></FormSection>
+    <FormSection title="Insurance Section" description="Display trusted insurance partnerships."><Field name="insuranceHeadingEn" label="English heading" value={c.insuranceHeadingEn}/><Field name="insuranceHeadingAr" label="Arabic heading" value={c.insuranceHeadingAr} rtl/><Field name="insuranceDescriptionEn" label="English description" value={c.insuranceDescriptionEn} area/><Field name="insuranceDescriptionAr" label="Arabic description" value={c.insuranceDescriptionAr} rtl area/><Visible name="insuranceVisible" value={c.insuranceVisible}/></FormSection>
+    <div className="admin-form-actions"><span className={`admin-feedback ${state}`} role="status">{message}</span><button disabled={state === "saving"}>{state === "saving" ? "Saving…" : "Save homepage"}</button></div>
+  </form>;
+}

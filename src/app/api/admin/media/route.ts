@@ -50,3 +50,16 @@ export async function POST(req: Request) {
     { status: 201 },
   );
 }
+export async function DELETE(req: Request) {
+  if (!(await requireStaff())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const id = new URL(req.url).searchParams.get("id");
+  if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
+  const media = await db.media.findUnique({ where: { id } });
+  if (!media) return NextResponse.json({ error: "Media not found" }, { status: 404 });
+  const base = process.env.SUPABASE_URL, key = process.env.SUPABASE_SERVICE_ROLE_KEY, bucket = process.env.SUPABASE_STORAGE_BUCKET || "media";
+  if (!base || !key) return NextResponse.json({ error: "Storage is not configured" }, { status: 503 });
+  const removed = await fetch(`${base}/storage/v1/object/${bucket}/${media.path}`, { method: "DELETE", headers: { authorization: `Bearer ${key}`, apikey: key } });
+  if (!removed.ok && removed.status !== 404) return NextResponse.json({ error: "Could not delete stored object" }, { status: 502 });
+  await db.media.delete({ where: { id } });
+  return new NextResponse(null, { status: 204 });
+}
