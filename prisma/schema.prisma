@@ -1,10 +1,90 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "postgresql" url = env("DATABASE_URL") }
-enum Role { ADMIN EDITOR }
-enum AppointmentStatus { PENDING CONFIRMED COMPLETED CANCELLED }
-enum ContactStatus { NEW READ RESOLVED }
-model User { id String @id @default(cuid()) email String @unique passwordHash String role Role @default(EDITOR) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt }
-model Service { id String @id @default(cuid()) slug String @unique titleEn String titleAr String descriptionEn String descriptionAr String imageUrl String? published Boolean @default(true) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt appointments Appointment[] }
-model Appointment { id String @id @default(cuid()) name String email String phone String locale String @default("en") preferredAt DateTime message String? status AppointmentStatus @default(PENDING) serviceId String service Service @relation(fields:[serviceId], references:[id]) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@index([status,preferredAt]) }
-model ContactMessage { id String @id @default(cuid()) name String email String phone String? subject String message String locale String @default("en") status ContactStatus @default(NEW) createdAt DateTime @default(now()) updatedAt DateTime @updatedAt @@index([status,createdAt]) }
-model Media { id String @id @default(cuid()) path String @unique url String altEn String? altAr String? createdAt DateTime @default(now()) }
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum ContactStatus {
+  NEW
+  READ
+  RESOLVED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(EDITOR)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Service {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  titleEn       String
+  titleAr       String
+  descriptionEn String
+  descriptionAr String
+  imageUrl      String?
+  published     Boolean       @default(true)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  appointments  Appointment[]
+}
+
+model Appointment {
+  id          String            @id @default(cuid())
+  name        String
+  email       String
+  phone       String
+  locale      String            @default("en")
+  preferredAt DateTime
+  message     String?
+  status      AppointmentStatus @default(PENDING)
+  serviceId   String
+  service     Service           @relation(fields: [serviceId], references: [id])
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([status, preferredAt])
+}
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  locale    String        @default("en")
+  status    ContactStatus @default(NEW)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, createdAt])
+}
+
+model Media {
+  id        String   @id @default(cuid())
+  path      String   @unique
+  url       String
+  altEn     String?
+  altAr     String?
+  createdAt DateTime @default(now())
+}
