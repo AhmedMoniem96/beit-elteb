@@ -13,7 +13,7 @@ export function StatusSelect({
 }) {
   const [status, setStatus] = useState(value);
   return (
-    <select
+    <select className={`admin-status-select badge-${status.toLowerCase()}`}
       aria-label="Status"
       value={status}
       onChange={async (e) => {
