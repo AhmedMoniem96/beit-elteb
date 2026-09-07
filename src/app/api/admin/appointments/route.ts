@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { requireStaff } from "@/lib/authorize";
+import { requireAdmin, requireStaff } from "@/lib/authorize";
 import { db } from "@/lib/db";
 import { AppointmentStatus } from "@prisma/client";
 export async function PATCH(req: Request) {

@@ -3,7 +3,9 @@ export const appointmentSchema = z.object({
   name: z.string().trim().min(2).max(100),
   email: z.email(),
   phone: z.string().trim().min(7).max(30),
-  serviceId: z.string().min(1),
+  serviceId: z.string().optional().transform((v) => v || undefined),
+  specialtyId: z.string().min(1),
+  doctorId: z.string().min(1),
   preferredAt: z.coerce
     .date()
     .refine((d) => (d > Date.now() ? true : false), "Choose a future date"),

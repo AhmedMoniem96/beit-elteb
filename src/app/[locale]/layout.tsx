@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header";
 import { isLocale } from "@/lib/i18n";
+import { Footer } from "@/components/Footer";
 export default async function LocaleLayout({
   children,
   params,
@@ -14,12 +15,7 @@ export default async function LocaleLayout({
     <div dir={locale === "ar" ? "rtl" : "ltr"} lang={locale}>
       <Header locale={locale} />
       <main>{children}</main>
-      <footer className="footer">
-        <div className="container">
-          <strong>{locale === "ar" ? "بيت الطب" : "Beit El Teb"}</strong>
-          <span>© {new Date().getFullYear()} · hello@beitelteb.com</span>
-        </div>
-      </footer>
+      <Footer locale={locale} />
     </div>
   );
 }

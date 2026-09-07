@@ -9,6 +9,8 @@ export const copy = {
     nav: {
       home: "Home",
       services: "Services",
+      doctors: "Doctors",
+      insurance: "Insurance",
       about: "About",
       contact: "Contact",
       book: "Book now",
@@ -37,6 +39,8 @@ export const copy = {
     nav: {
       home: "الرئيسية",
       services: "الخدمات",
+      doctors: "الأطباء",
+      insurance: "التأمين",
       about: "من نحن",
       contact: "تواصل معنا",
       book: "احجز الآن",

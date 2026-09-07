@@ -31,7 +31,7 @@ export default async function Appointments() {
                 <br />
                 {r.phone}
               </td>
-              <td>{r.service.titleEn}</td>
+              <td>{r.service?.titleEn || "—"}</td>
               <td>{r.preferredAt.toLocaleString()}</td>
               <td>
                 <StatusSelect

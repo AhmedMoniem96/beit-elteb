@@ -42,10 +42,14 @@ model Service {
   descriptionEn String
   descriptionAr String
   imageUrl      String?
+  icon          String?
+  featured      Boolean       @default(false)
+  sortOrder     Int           @default(0)
   published     Boolean       @default(true)
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
   appointments  Appointment[]
+  doctors       Doctor[]
 }
 
 model Appointment {
@@ -57,12 +61,135 @@ model Appointment {
   preferredAt DateTime
   message     String?
   status      AppointmentStatus @default(PENDING)
-  serviceId   String
-  service     Service           @relation(fields: [serviceId], references: [id])
+  serviceId   String?
+  service     Service?          @relation(fields: [serviceId], references: [id])
+  specialtyId String?
+  specialty   Specialty?        @relation(fields: [specialtyId], references: [id])
+  doctorId    String?
+  doctor      Doctor?           @relation(fields: [doctorId], references: [id])
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
   @@index([status, preferredAt])
+}
+
+model Specialty {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  nameEn        String
+  nameAr        String
+  descriptionEn String
+  descriptionAr String
+  icon          String?
+  imageUrl      String?
+  featured      Boolean       @default(false)
+  published     Boolean       @default(true)
+  sortOrder     Int           @default(0)
+  doctors       Doctor[]
+  appointments  Appointment[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Doctor {
+  id                 String        @id @default(cuid())
+  slug               String        @unique
+  nameEn             String
+  nameAr             String
+  titleEn            String
+  titleAr            String
+  shortDescriptionEn String
+  shortDescriptionAr String
+  biographyEn        String
+  biographyAr        String
+  imageUrl           String?
+  specialtyId        String
+  specialty          Specialty     @relation(fields: [specialtyId], references: [id])
+  qualificationsEn   String
+  qualificationsAr   String
+  experienceEn       String
+  experienceAr       String
+  languagesEn        String
+  languagesAr        String
+  clinicEn           String
+  clinicAr           String
+  consultationPrice  Decimal?      @db.Decimal(10, 2)
+  scheduleEn         String?
+  scheduleAr         String?
+  featured           Boolean       @default(false)
+  published          Boolean       @default(true)
+  sortOrder           Int           @default(0)
+  services           Service[]
+  appointments       Appointment[]
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  @@index([specialtyId, published, sortOrder])
+}
+
+model InsuranceProvider {
+  id            String   @id @default(cuid())
+  nameEn        String
+  nameAr        String
+  logoUrl       String?
+  website       String?
+  descriptionEn String?
+  descriptionAr String?
+  featured      Boolean  @default(false)
+  published     Boolean  @default(true)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SiteSettings {
+  id             String   @id @default("default")
+  siteName        String   @default("Beit El Teb")
+  logoUrl         String?
+  faviconUrl      String?
+  phone           String?
+  whatsapp        String?
+  email           String?
+  addressEn       String?
+  addressAr       String?
+  googleMapsUrl   String?
+  workingHoursEn  String?
+  workingHoursAr  String?
+  facebook        String?
+  instagram       String?
+  linkedin        String?
+  youtube         String?
+  seoTitle        String?
+  seoDescription  String?
+  ogImageUrl      String?
+  updatedAt        DateTime @updatedAt
+}
+
+model HomepageContent {
+  id                  String   @id @default("default")
+  heroTitleEn         String
+  heroTitleAr         String
+  heroDescriptionEn   String
+  heroDescriptionAr   String
+  heroImageUrl         String?
+  primaryCtaEn        String
+  primaryCtaAr        String
+  secondaryCtaEn      String
+  secondaryCtaAr      String
+  servicesVisible     Boolean  @default(true)
+  doctorsVisible      Boolean  @default(true)
+  whyVisible          Boolean  @default(true)
+  insuranceVisible    Boolean  @default(true)
+  appointmentVisible  Boolean  @default(true)
+  whyTitleEn          String
+  whyTitleAr          String
+  whyDescriptionEn    String
+  whyDescriptionAr    String
+  ctaTitleEn          String
+  ctaTitleAr          String
+  ctaDescriptionEn    String
+  ctaDescriptionAr    String
+  updatedAt            DateTime @updatedAt
 }
 
 model ContactMessage {
