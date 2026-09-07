@@ -8,11 +8,8 @@ export async function POST(req: Request) {
       { error: "Invalid submission", issues: parsed.error.issues },
       { status: 400 },
     );
-  const exists = await db.service.findUnique({
-    where: { id: parsed.data.serviceId },
-  });
-  if (!exists)
-    return NextResponse.json({ error: "Service not found" }, { status: 404 });
+  const doctor = await db.doctor.findFirst({ where: { id: parsed.data.doctorId, specialtyId: parsed.data.specialtyId, published: true } });
+  if (!doctor) return NextResponse.json({ error: "Doctor not found" }, { status: 404 });
   const item = await db.appointment.create({ data: parsed.data });
   return NextResponse.json(
     { id: item.id, status: item.status },
