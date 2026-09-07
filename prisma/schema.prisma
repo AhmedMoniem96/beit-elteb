@@ -176,10 +176,22 @@ model HomepageContent {
   primaryCtaAr        String
   secondaryCtaEn      String
   secondaryCtaAr      String
-  servicesVisible     Boolean  @default(true)
-  doctorsVisible      Boolean  @default(true)
+  servicesVisible       Boolean  @default(true)
+  servicesHeadingEn     String?
+  servicesHeadingAr     String?
+  servicesDescriptionEn String?
+  servicesDescriptionAr String?
+  doctorsVisible        Boolean  @default(true)
+  doctorsHeadingEn      String?
+  doctorsHeadingAr      String?
+  doctorsDescriptionEn  String?
+  doctorsDescriptionAr  String?
   whyVisible          Boolean  @default(true)
-  insuranceVisible    Boolean  @default(true)
+  insuranceVisible       Boolean  @default(true)
+  insuranceHeadingEn     String?
+  insuranceHeadingAr     String?
+  insuranceDescriptionEn String?
+  insuranceDescriptionAr String?
   appointmentVisible  Boolean  @default(true)
   whyTitleEn          String
   whyTitleAr          String
@@ -189,6 +201,7 @@ model HomepageContent {
   ctaTitleAr          String
   ctaDescriptionEn    String
   ctaDescriptionAr    String
+  ctaImageUrl          String?
   updatedAt            DateTime @updatedAt
 }
 
