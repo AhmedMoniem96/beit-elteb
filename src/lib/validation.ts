@@ -8,7 +8,7 @@ export const appointmentSchema = z.object({
   doctorId: z.string().min(1),
   preferredAt: z.coerce
     .date()
-    .refine((d) => (d > Date.now() ? true : false), "Choose a future date"),
+    .refine((d) => (d.getTime() > Date.now() ? true : false), "Choose a future date"),
   message: z.string().max(1000).optional(),
   locale: z.enum(["en", "ar"]).default("en"),
 });
