@@ -1,0 +1,221 @@
+@import "tailwindcss";
+:root {
+  --ink: #17342d;
+  --green: #2d6a58;
+  --cream: #f7f3e9;
+  --sage: #dce9df;
+  --coral: #da745f;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+  font-family: Arial, "Noto Sans Arabic", sans-serif;
+  line-height: 1.6;
+}
+.container {
+  max-width: 1120px;
+  margin: auto;
+  padding: 0 24px;
+}
+.header {
+  max-width: 1120px;
+  margin: auto;
+  padding: 22px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+.header a {
+  text-decoration: none;
+  color: inherit;
+}
+.button,
+button {
+  display: inline-block;
+  background: var(--green);
+  color: #fff !important;
+  padding: 11px 20px;
+  border: 0;
+  border-radius: 99px;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+}
+.small {
+  padding: 8px 16px;
+}
+.hero {
+  min-height: 620px;
+  background:
+    linear-gradient(100deg, rgba(23, 52, 45, 0.9), rgba(23, 52, 45, 0.25)),
+    url("/clinic.svg") center/cover;
+  display: flex;
+  align-items: center;
+  color: #fff;
+}
+.hero-content {
+  max-width: 650px;
+  padding: 80px 24px;
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: bold;
+  color: #e5bf72;
+}
+.hero h1 {
+  font:
+    700 clamp(3rem, 7vw, 5.8rem)/1 Georgia,
+    serif;
+  margin: 12px 0 24px;
+}
+.hero p {
+  font-size: 1.25rem;
+  max-width: 570px;
+}
+.hero .button {
+  background: var(--coral);
+  margin-top: 16px;
+}
+.section {
+  padding: 90px 24px;
+}
+.section h1,
+.section h2 {
+  font:
+    700 clamp(2.2rem, 4vw, 3.5rem)/1.1 Georgia,
+    serif;
+}
+.intro {
+  text-align: center;
+  max-width: 760px;
+  margin: auto;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 42px;
+}
+.card {
+  padding: 30px;
+  background: var(--cream);
+  border-radius: 18px;
+  border-top: 5px solid var(--green);
+}
+.band {
+  background: var(--sage);
+}
+.form {
+  max-width: 680px;
+  display: grid;
+  gap: 18px;
+  margin-top: 30px;
+}
+.form label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+.form input,
+.form textarea,
+.form select {
+  border: 1px solid #9caea8;
+  border-radius: 9px;
+  padding: 13px;
+  font: inherit;
+  background: #fff;
+}
+.form textarea {
+  min-height: 130px;
+}
+.form button {
+  justify-self: start;
+}
+.success {
+  background: var(--sage);
+  padding: 12px;
+  border-radius: 8px;
+}
+.footer {
+  background: var(--ink);
+  color: #fff;
+  padding: 45px 24px;
+}
+.footer > div {
+  display: flex;
+  justify-content: space-between;
+}
+.admin {
+  max-width: 1200px;
+  margin: auto;
+  padding: 32px;
+}
+.admin nav {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table th,
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: start;
+}
+.stat {
+  font-size: 2rem;
+  font-weight: bold;
+}
+[dir="rtl"] .hero {
+  background:
+    linear-gradient(260deg, rgba(23, 52, 45, 0.9), rgba(23, 52, 45, 0.25)),
+    url("/clinic.svg") center/cover;
+}
+@media (max-width: 760px) {
+  .header {
+    align-items: flex-start;
+  }
+  .header nav {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+    font-size: 0.9rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    min-height: 520px;
+  }
+  .section {
+    padding: 60px 24px;
+  }
+  .footer > div {
+    display: block;
+  }
+  .table {
+    display: block;
+    overflow: auto;
+  }
+}
