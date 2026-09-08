@@ -118,11 +118,11 @@ model Doctor {
   scheduleAr         String?
   featured           Boolean       @default(false)
   published          Boolean       @default(true)
-  sortOrder           Int           @default(0)
+  sortOrder          Int           @default(0)
   services           Service[]
   appointments       Appointment[]
-  createdAt           DateTime      @default(now())
-  updatedAt           DateTime      @updatedAt
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
 
   @@index([specialtyId, published, sortOrder])
 }
@@ -144,65 +144,65 @@ model InsuranceProvider {
 
 model SiteSettings {
   id             String   @id @default("default")
-  siteName        String   @default("Beit El Teb")
-  logoUrl         String?
-  faviconUrl      String?
-  phone           String?
-  whatsapp        String?
-  email           String?
-  addressEn       String?
-  addressAr       String?
-  googleMapsUrl   String?
-  workingHoursEn  String?
-  workingHoursAr  String?
-  facebook        String?
-  instagram       String?
-  linkedin        String?
-  youtube         String?
-  seoTitle        String?
-  seoDescription  String?
-  ogImageUrl      String?
-  updatedAt        DateTime @updatedAt
+  siteName       String   @default("Beit El Teb")
+  logoUrl        String?
+  faviconUrl     String?
+  phone          String?
+  whatsapp       String?
+  email          String?
+  addressEn      String?
+  addressAr      String?
+  googleMapsUrl  String?
+  workingHoursEn String?
+  workingHoursAr String?
+  facebook       String?
+  instagram      String?
+  linkedin       String?
+  youtube        String?
+  seoTitle       String?
+  seoDescription String?
+  ogImageUrl     String?
+  updatedAt      DateTime @updatedAt
 }
 
 model HomepageContent {
-  id                  String   @id @default("default")
-  heroTitleEn         String
-  heroTitleAr         String
-  heroDescriptionEn   String
-  heroDescriptionAr   String
-  heroImageUrl         String?
-  primaryCtaEn        String
-  primaryCtaAr        String
-  secondaryCtaEn      String
-  secondaryCtaAr      String
-  servicesVisible       Boolean  @default(true)
-  servicesHeadingEn     String?
-  servicesHeadingAr     String?
-  servicesDescriptionEn String?
-  servicesDescriptionAr String?
-  doctorsVisible        Boolean  @default(true)
-  doctorsHeadingEn      String?
-  doctorsHeadingAr      String?
-  doctorsDescriptionEn  String?
-  doctorsDescriptionAr  String?
-  whyVisible          Boolean  @default(true)
+  id                     String   @id @default("default")
+  heroTitleEn            String
+  heroTitleAr            String
+  heroDescriptionEn      String
+  heroDescriptionAr      String
+  heroImageUrl           String?
+  primaryCtaEn           String
+  primaryCtaAr           String
+  secondaryCtaEn         String
+  secondaryCtaAr         String
+  servicesVisible        Boolean  @default(true)
+  servicesHeadingEn      String?
+  servicesHeadingAr      String?
+  servicesDescriptionEn  String?
+  servicesDescriptionAr  String?
+  doctorsVisible         Boolean  @default(true)
+  doctorsHeadingEn       String?
+  doctorsHeadingAr       String?
+  doctorsDescriptionEn   String?
+  doctorsDescriptionAr   String?
+  whyVisible             Boolean  @default(true)
   insuranceVisible       Boolean  @default(true)
   insuranceHeadingEn     String?
   insuranceHeadingAr     String?
   insuranceDescriptionEn String?
   insuranceDescriptionAr String?
-  appointmentVisible  Boolean  @default(true)
-  whyTitleEn          String
-  whyTitleAr          String
-  whyDescriptionEn    String
-  whyDescriptionAr    String
-  ctaTitleEn          String
-  ctaTitleAr          String
-  ctaDescriptionEn    String
-  ctaDescriptionAr    String
-  ctaImageUrl          String?
-  updatedAt            DateTime @updatedAt
+  appointmentVisible     Boolean  @default(true)
+  whyTitleEn             String
+  whyTitleAr             String
+  whyDescriptionEn       String
+  whyDescriptionAr       String
+  ctaTitleEn             String
+  ctaTitleAr             String
+  ctaDescriptionEn       String
+  ctaDescriptionAr       String
+  ctaImageUrl            String?
+  updatedAt              DateTime @updatedAt
 }
 
 model ContactMessage {

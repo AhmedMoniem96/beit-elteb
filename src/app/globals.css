@@ -35,3 +35,52 @@ body{font-family:"Publica Sans","Avenir Next",Avenir,"Segoe UI",Arial,"Noto Sans
 .admin-dialog-backdrop{position:fixed;z-index:80;inset:0;background:#0d2429a8;display:grid;place-items:center;padding:20px}.admin-dialog{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:17px;box-shadow:0 30px 80px #07191d55}.admin-dialog>.admin-form-grid{padding:22px}.admin-dialog .admin-form-actions{grid-column:1/-1;position:static;padding:14px 0 0;box-shadow:none;border:0;border-top:1px solid var(--admin-border);border-radius:0}
 .admin-message-detail{padding:22px;display:grid;gap:20px}.admin-message-detail>p{white-space:pre-wrap;padding:18px;background:#f7f9f8;border-radius:12px}.admin-media-meta input{width:100%;padding:7px;border:1px solid #dce5e2;border-radius:7px;font-size:.68rem}
 .admin-feedback{margin-right:auto;align-self:center;font-size:.8rem;padding:9px 12px;border-radius:8px}.admin-feedback:empty{display:none}.admin-feedback.success{background:#e1f4e8;color:#237243}.admin-feedback.error,.admin-inline-error{background:#f9e7e7;color:#9c4444}.admin-inline-error{display:block;padding:2px 5px;margin-top:3px;border-radius:4px}.admin-stat-filter{display:block;padding:0!important;border:0;border-radius:15px;background:transparent!important;color:inherit!important;text-align:initial}.admin-stat-filter .admin-stat-card{height:100%;transition:.15s}.admin-stat-filter:hover .admin-stat-card,.admin-stat-filter.active .admin-stat-card{border-color:var(--admin-accent);box-shadow:0 0 0 2px #16788a22}.admin-toolbar .admin-secondary,.admin-media-meta .admin-secondary{color:var(--admin-ink)!important;white-space:nowrap}.admin-media-meta .admin-row-actions{margin-top:10px}.admin-media-meta .admin-danger{padding:8px}.admin-form-actions button:disabled,button:disabled{opacity:.65;cursor:wait}
+
+/* Bait AlTeeb official logo sizing */
+
+.brand-logo {
+  width: 240px;
+  min-width: 240px;
+  height: 70px;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.brand-logo img {
+  width: 220px;
+  height: 58px;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Footer logo */
+.footer .brand-logo {
+  width: 250px;
+  height: 82px;
+  padding: 10px 14px;
+  background: #fff;
+}
+
+.footer .brand-logo img {
+  width: 220px;
+  height: 60px;
+  object-fit: contain;
+}
+
+/* Mobile */
+@media (max-width: 580px) {
+  .brand-logo {
+    width: 185px;
+    min-width: 185px;
+    height: 60px;
+  }
+
+  .brand-logo img {
+    width: 175px;
+    height: 48px;
+  }
+}
