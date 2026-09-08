@@ -7,7 +7,7 @@ export function DoctorCard({ doctor, locale }: { doctor: Doctor & { specialty: S
     <div className="card-body"><span className="pill">{locale === "ar" ? doctor.specialty.nameAr : doctor.specialty.nameEn}</span>
       <h3>{locale === "ar" ? doctor.nameAr : doctor.nameEn}</h3><strong>{locale === "ar" ? doctor.titleAr : doctor.titleEn}</strong>
       <p>{locale === "ar" ? doctor.shortDescriptionAr : doctor.shortDescriptionEn}</p>
-      <div className="card-actions"><Link href={`/${locale}/doctors/${doctor.slug}`}>{locale === "ar" ? "الملف الشخصي" : "View profile"}</Link><Link className="button small" href={`/${locale}/book-appointment?doctor=${doctor.id}`}>{locale === "ar" ? "احجز" : "Book"}</Link></div>
+      <div className="card-actions"><Link href={`/${locale}/doctors/${doctor.slug}`}>{locale === "ar" ? "الملف الشخصي" : "View profile"} <span aria-hidden="true">{locale === "ar" ? "←" : "→"}</span></Link><Link className="button small" href={`/${locale}/book-appointment?doctor=${doctor.id}`}>{locale === "ar" ? "احجز" : "Book"}</Link></div>
     </div>
   </article>;
 }
